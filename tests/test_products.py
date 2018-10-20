@@ -34,6 +34,11 @@ class TestProducts(unittest.TestCase):
         response = self.app_tester.post('/products', json=input_data)
         self.assertEqual(response.status_code, 201)
 
+    def test_add_product_wrong_price(self):
+        input_data = {'id': 1, 'name': 'Phone', 'price': 'two'}
+        response = self.app_tester.post('/products', json=input_data)
+        self.assertEqual(response.status_code, 400)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -29,9 +29,16 @@ def get_all_products():
 @app.route('/products', methods=['POST'])
 def add_product():
     data = request.get_json()
-    print(data)
-    product = Product(data['id'], data['name'], data['price'])
-    products.append(product)
+
+    try:
+        print(data)
+        if type(data['price']) is not int:
+            raise ValueError('Price should be integer')
+        product = Product(data['id'], data['name'], data['price'])
+        products.append(product)
+    except ValueError as e:
+        print(e)
+        return jsonify({'message': 'Price should be integer'}), 400
     return jsonify({'products': [product.to_json()]}), 201
 
 
