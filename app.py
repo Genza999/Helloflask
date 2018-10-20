@@ -15,7 +15,9 @@ def hello_world():
 
 @app.route('/products', methods=['GET'])
 def get_all_products():
-    json_products = [product.to_json() for product in products]
+    json_products = []
+    for product in products:
+        json_products.append(product.to_json())
     return jsonify({'products': json_products})
 
 
